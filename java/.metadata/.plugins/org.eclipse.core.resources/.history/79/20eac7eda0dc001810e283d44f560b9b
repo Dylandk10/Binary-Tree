@@ -1,0 +1,58 @@
+
+public class BinaryTree {
+	Node root;
+	public BinaryTree() {
+		this.root = null;
+	}
+	public void addNode(int value) {
+		System.out.println("the value is: " + value);
+		Node root = this.root;
+		if(this.root == null) {
+			this.root = new Node(value);
+			System.out.println("head node; " + this.root.value);
+			return;
+		}
+		
+		Node currentRoot = root;
+		while(true) {
+			if(value < currentRoot.value) {
+				if(currentRoot.left == null) {
+				currentRoot = new Node(value);
+				currentRoot.parent = currentRoot;
+				System.out.println("the next left node " + value);
+				break;
+				} else {
+					currentRoot = currentRoot.left;
+				}
+			} else if(value > currentRoot.value) {
+				if(currentRoot.right == null) {
+					currentRoot.right = new Node(value);
+					currentRoot.parent = currentRoot;
+					System.out.println("the next right node " + value);
+					break;
+				} else {
+					currentRoot = currentRoot.right;
+				}
+			} else {
+				System.out.println("input equal and cannot be placed");
+				break;
+			}
+		}
+	}
+	
+	//warning can take null parameter 
+	public void printInOrder(Node nextNode) {
+		if(nextNode == null) {
+			nextNode = this.root;
+		}
+		
+		if(nextNode.left != null) {
+			this.printInOrder(nextNode.left);
+		}
+		
+		if(nextNode.right != null) {
+			this.printInOrder(nextNode.right);
+		}
+		System.out.println("next node " + nextNode.value);
+	}
+}

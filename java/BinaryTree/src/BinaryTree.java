@@ -1,0 +1,90 @@
+import java.util.Stack;
+
+public class BinaryTree {
+	Node root;
+	public BinaryTree() {
+		this.root = null;
+	}
+	public void addNode(int value) {
+		System.out.println("the value is: " + value);
+		Node root = this.root;
+		if(this.root == null) {
+			this.root = new Node(value);
+			System.out.println("head node; " + this.root.value);
+			return;
+		}
+		
+		Node currentRoot = root;
+		while(true) {
+			//node goes left 
+			if(value < currentRoot.value) {
+				if(currentRoot.left == null) {
+				currentRoot.left = new Node(value);
+				currentRoot.left.parent = currentRoot;
+				System.out.println("the next left node " + value);
+				break;
+				} else {
+					currentRoot = currentRoot.left;
+				}
+				//node goes right 
+			} else if(value > currentRoot.value) {
+				if(currentRoot.right == null) {
+					currentRoot.right = new Node(value);
+					currentRoot.right.parent = currentRoot;
+					System.out.println("the next right node " + value);
+					break;
+				} else {
+					currentRoot = currentRoot.right;
+				}
+				//node is equal and cannot be placed 
+			} else {
+				System.out.println("input equal and cannot be placed");
+				break;
+			}
+		}
+	}
+	public Node getRoot() {
+		return this.root;
+	}
+	public void searchTree(int searchValue) {
+		Node nodeFromTree = this.getValue(searchValue);
+		if(nodeFromTree == null) {
+			System.out.println("Number not in tree");
+		} else {
+			System.out.println("Number found: " + nodeFromTree.value);
+		}
+	}
+	//searches through tree and returns the matching node
+	private Node getValue(int value) {
+		Node compareValue = this.root;
+		while(true) {
+			if(compareValue == null ) {
+				return null;
+			} else if(value == compareValue.value) {
+				return compareValue;
+			} else {
+				if(value < compareValue.value) {
+					compareValue = compareValue.left;
+				} else if(value > compareValue.value) {
+					compareValue = compareValue.right;
+				}
+			}
+		}
+	}
+	
+	//print the node.values in order 
+	//warning can take null parameter 
+	public void printInOrder(Node nextNode) {
+		if(nextNode == null) {
+			return;
+		}
+		if(nextNode.left != null) {
+			this.printInOrder(nextNode.left);
+		}
+		
+		System.out.println("The next node: " + nextNode.value);
+		if(nextNode.right != null) {
+			this.printInOrder(nextNode.right);
+		}
+	}
+}

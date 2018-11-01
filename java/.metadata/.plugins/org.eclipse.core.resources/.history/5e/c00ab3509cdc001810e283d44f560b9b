@@ -1,0 +1,7 @@
+
+public class BinaryTree {
+	int root;
+	public BinaryTree(int root) {
+		this.root = root;
+	}
+}
